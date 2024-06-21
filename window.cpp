@@ -28,7 +28,7 @@ static bool cursor_is_grabbed = false;
  * \date created: 2024-02-25, edited: 2024-02-26
  */
 GLFWwindow *initialize_glfw_glad_and_return_window(unsigned int *window_width_px, unsigned int *window_height_px,
-                                                   const char *window_name, bool start_in_fullscreen,
+                                                   const char *window_name, bool start_in_fullscreen, bool vsync,
                                                    NetworkedInputSnapshot *input_snapshot_ptr) {
 
     glfwSetErrorCallback(error_callback);
@@ -69,6 +69,10 @@ GLFWwindow *initialize_glfw_glad_and_return_window(unsigned int *window_width_px
 
     // disable this for debugging so you can move the mouse outside the window
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+    int vsync_int = vsync;
+
+    glfwSwapInterval(vsync_int);
 
     if (glfwRawMouseMotionSupported()) {
         // logger.info("raw mouse motion supported, using it");
